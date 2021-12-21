@@ -230,3 +230,446 @@ select:-webkit-autofill:focus {
 		</ul>
 	</div>
 </div>
+<script>
+	var
+	videoList 	= 	document.querySelector(".video-list ul"),
+	videoWrapper	=	document.querySelector(".video-list ul"),
+	videoIDsArray   = ['zrDDcOyc9hY', 'YvUqogKqRYE', 'gxXCfSN3YYY', 'W_aKjWfzQ7E', 'kTVDiFX6Ag4', 'HQE456q4n5U', 'w2IhccXakkE', 'gxykC33lTiQ', 'CPh51t7KHLw', 'Nkrgb7qIko0', 'PEEoaKwwxbg', 'OKCz6EiAM6Y', 'GIDTSzFSexM', 'g-uW3I_AtDE', '1rTY2JhYFtQ', '65FcjY-2iw8'],
+	videoWidth,
+	videoMargin,
+	videoIndex = videoIDsArray.length,
+	currentVideo = 0,
+	currentPosition,
+	postList 	= 	document.querySelector(".dates-list ul"),
+	contentWrapper	=	document.querySelector(".dates-list ul"),
+	sectionLive   =   document.querySelector('.dates-list ul'), 
+	artistName 	=	'EAS7',
+	appID 	= 	'EAS7',
+	curDate = new Date(),
+	date = curDate.getFullYear()+'-'+("0"+(curDate.getMonth()+1)).slice(-2)+'-'+("0"+curDate.getDate()).slice(-2),
+	tempHTML = ''
+	;
+	
+	if(($(window).width()/$(window).height()) < (1366/768) && (($(window).height()/$(window).width()) > (768/1366)) && ($(window).width() > 812)){
+		/*$('#top-section').height($(window).height());*/
+		$('#music-section').height($(window).height());
+		$('#music-section').css('min-height', ((($(window).width()*.3)+($(window).width()*.025))*(Math.ceil($('#songs-wrapper').children().length/2))) + 100 + 'px');
+		$('.album-wrapper').width($(window).width()*.3);
+		$('.album-wrapper').height($(window).width()*.3);
+		$('.album-wrapper').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+		$('.stream-info').width($(window).width()*.3);
+		$('.stream-info').height($(window).width()*.3);
+		$('.stream-info').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+		$('.album-art').width($(window).width()*.3);
+		$('.album-art').height($(window).width()*.3);
+		$('#tour-section').height($(window).height());
+		$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+		$('#merch-section').height($(window).height());
+		$('#merch-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+		$('#video-section').height($(window).height());
+		$('#video-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+		$('#photo-section').height($(window).height());
+		$('#top-section').css('min-height', $(window).width() * .5 + 'px');
+	}
+	else if(($(window).width()/$(window).height()) > (1366/768) && (($(window).height()/$(window).width()) < (768/1366)) && ($(window).width() > 812)){
+		/*$('#top-section').height($(window).height());*/
+		$('#music-section').height($(window).height());
+		$('#music-section').css('min-height', ((($(window).width()*.3)+($(window).width()*.025))*(Math.ceil($('#songs-wrapper').children().length/2))) + 100 + 'px');
+		$('.album-wrapper').width($(window).width()*.3);
+		$('.album-wrapper').height($(window).width()*.3);
+		$('.album-wrapper').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+		$('.stream-info').width($(window).width()*.3);
+		$('.stream-info').height($(window).width()*.3);
+		$('.stream-info').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+		$('.album-art').width($(window).width()*.3);
+		$('.album-art').height($(window).width()*.3);
+		$('#tour-section').height($(window).height());
+		$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+		$('#merch-section').height($(window).height());
+		$('#merch-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+		$('#video-section').height($(window).height());
+		$('#video-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+		$('#photo-section').height($(window).height());
+		$('#top-section').css('min-height', $(window).width() * .5 + 'px');
+	}
+	else if(($(window).width()/$(window).height()) < (1366/768) && (($(window).height()/$(window).width()) > (768/1366)) && ($(window).width() < 813)){
+		/*$('#top-section').height($(window).height());*/
+		$('#music-section').height($(window).height());
+		$('#music-section').css('min-height', ((($(window).width()*.8)+($(window).width()*.025))*(Math.ceil($('#songs-wrapper').children().length)) + 100 + 'px'));
+		$('.album-wrapper').width($(window).width()*.8);
+		$('.album-wrapper').height($(window).width()*.8);
+		$('.album-wrapper').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+		$('.stream-info').width($(window).width()*.8);
+		$('.stream-info').height($(window).width()*.2);
+		$('.stream-info').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+		$('.album-art').width($(window).width()*.8);
+		$('.album-art').height($(window).width()*.8);
+		$('#tour-section').height($(window).height());
+		$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+		$('#merch-section').height($(window).height());
+		$('#merch-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+		$('#video-section').height($(window).height());
+		$('#video-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+		$('#photo-section').height($(window).height());
+		$('#top-section').css('min-height', $(window).width() * .5 + 'px');
+	}
+	else if(($(window).width()/$(window).height()) > (1366/768) && (($(window).height()/$(window).width()) < (768/1366)) && ($(window).width() < 813)){
+		/*$('#top-section').height($(window).height());*/
+		$('#music-section').height($(window).height());
+		$('#music-section').css('min-height', ((($(window).width()*.8)+($(window).width()*.025))*(Math.ceil($('#songs-wrapper').children().length)) + 100 + 'px'));
+		$('.album-wrapper').width($(window).width()*.8);
+		$('.album-wrapper').height($(window).width()*.8);
+		$('.album-wrapper').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+		$('.stream-info').width($(window).width()*.8);
+		$('.stream-info').height($(window).width()*.2);
+		$('.stream-info').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+		$('.album-art').width($(window).width()*.8);
+		$('.album-art').height($(window).width()*.8);
+		$('#tour-section').height($(window).height());
+		$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+		$('#merch-section').height($(window).height());
+		$('#merch-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+		$('#video-section').height($(window).height());
+		$('#video-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+		$('#photo-section').height($(window).height());
+		$('#top-section').css('min-height', $(window).width() * .5 + 'px');
+	}
+	
+	$(window).resize(function(){
+		if(($(window).width()/$(window).height()) < (1366/768) && (($(window).height()/$(window).width()) > (768/1366)) && ($(window).width() > 812)){
+			/*$('#top-section').height($(window).height());*/
+			$('#music-section').height($(window).height());
+			$('#music-section').css('min-height', ((($(window).width()*.3)+($(window).width()*.025))*(Math.ceil($('#songs-wrapper').children().length/2))) + 100 + 'px');
+			$('.album-wrapper').width($(window).width()*.3);
+			$('.album-wrapper').height($(window).width()*.3);
+			$('.album-wrapper').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+			$('.stream-info').width($(window).width()*.3);
+			$('.stream-info').height($(window).width()*.3);
+			$('.stream-info').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+			$('.album-art').width($(window).width()*.3);
+			$('.album-art').height($(window).width()*.3);
+			$('#tour-section').height($(window).height());
+			$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+			$('#merch-section').height($(window).height());
+			$('#merch-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+			$('#video-section').height($(window).height());
+			$('#video-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+			$('#photo-section').height($(window).height());
+			$('#top-section').css('min-height', $(window).width() * .5 + 'px');
+		}
+		else if(($(window).width()/$(window).height()) > (1366/768) && (($(window).height()/$(window).width()) < (768/1366)) && ($(window).width() > 812)){
+			/*$('#top-section').height($(window).height());*/
+			$('#music-section').height($(window).height());
+			$('#music-section').css('min-height', ((($(window).width()*.3)+($(window).width()*.025))*(Math.ceil($('#songs-wrapper').children().length/2))) + 100 + 'px');
+			$('.album-wrapper').width($(window).width()*.3);
+			$('.album-wrapper').height($(window).width()*.3);
+			$('.album-wrapper').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+			$('.stream-info').width($(window).width()*.3);
+			$('.stream-info').height($(window).width()*.3);
+			$('.stream-info').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+			$('.album-art').width($(window).width()*.3);
+			$('.album-art').height($(window).width()*.3);
+			$('#tour-section').height($(window).height());
+			$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+			$('#merch-section').height($(window).height());
+			$('#merch-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+			$('#video-section').height($(window).height());
+			$('#video-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+			$('#photo-section').height($(window).height());
+			$('#top-section').css('min-height', $(window).width() * .5 + 'px');
+		}
+		else if(($(window).width()/$(window).height()) < (1366/768) && (($(window).height()/$(window).width()) > (768/1366)) && ($(window).width() < 813)){
+			/*$('#top-section').height($(window).height());*/
+			$('#music-section').height($(window).height());
+			$('#music-section').css('min-height', ((($(window).width()*.8)+($(window).width()*.025))*(Math.ceil($('#songs-wrapper').children().length)) + 100 + 'px'));
+			$('.album-wrapper').width($(window).width()*.8);
+			$('.album-wrapper').height($(window).width()*.8);
+			$('.album-wrapper').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+			$('.stream-info').width($(window).width()*.8);
+			$('.stream-info').height($(window).width()*.2);
+			$('.stream-info').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+			$('.album-art').width($(window).width()*.8);
+			$('.album-art').height($(window).width()*.8);
+			$('#tour-section').height($(window).height());
+			$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+			$('#merch-section').height($(window).height());
+			$('#merch-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+			$('#video-section').height($(window).height());
+			$('#video-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+			$('#photo-section').height($(window).height());
+			$('#top-section').css('min-height', $(window).width() * .5 + 'px');
+		}
+		else if(($(window).width()/$(window).height()) > (1366/768) && (($(window).height()/$(window).width()) < (768/1366)) && ($(window).width() < 813)){
+			/*$('#top-section').height($(window).height());*/
+			$('#music-section').height($(window).height());
+			$('#music-section').css('min-height', ((($(window).width()*.8)+($(window).width()*.025))*(Math.ceil($('#songs-wrapper').children().length)) + 100 + 'px'));
+			$('.album-wrapper').width($(window).width()*.8);
+			$('.album-wrapper').height($(window).width()*.8);
+			$('.album-wrapper').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+			$('.stream-info').width($(window).width()*.8);
+			$('.stream-info').height($(window).width()*.2);
+			$('.stream-info').css('margin', ($(window).width()*.025) + 'px ' + ($(window).width()*.1) + 'px');
+			$('.album-art').width($(window).width()*.8);
+			$('.album-art').height($(window).width()*.8);
+			$('#tour-section').height($(window).height());
+			$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+			$('#merch-section').height($(window).height());
+			$('#merch-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+			$('#video-section').height($(window).height());
+			$('#video-section').css('min-height', (($(window).width()*.8)*(9/16)) + 100 + 'px');
+			$('#photo-section').height($(window).height());
+			$('#top-section').css('min-height', $(window).width() * .5 + 'px');
+		}
+	});
+	
+	setTimeout(function(){
+		if($(window).height() < $('#tour-wrapper').height()){
+			$('#tour-wrapper').removeClass('centered');
+		}
+		else{
+			$('#tour-wrapper').addClass('centered');
+		}
+	}, 500);
+	
+	$(window).resize(function(){
+		setTimeout(function(){
+			if($(window).height() < $('#tour-wrapper').height()){
+				$('#tour-wrapper').removeClass('centered');
+			}
+			else{
+				$('#tour-wrapper').addClass('centered');
+			}
+		}, 500);
+	});
+	
+	if($('.art').width() > 1001){
+		$('.art').css('background-size', 'cover');
+	}
+	else{
+		$('.art').css('background-size', 'contain');
+	}
+	
+	$(window).resize(function(){
+		if($('.art').width() > 1001){
+			$('.art').css('background-size', 'cover');
+		}
+		else{
+			$('.art').css('background-size', 'contain');
+		}
+	});
+	
+	function scrollMusic(){
+	  $('html,body').animate({scrollTop: $('#music-section').offset().top + 1});  
+	}
+	
+	function scrollVideos(){
+	  $('html,body').animate({scrollTop: $('#video-section').offset().top + 1});
+	}
+	
+	function scrollTour(){
+	  $('html,body').animate({scrollTop: $('#tour-section').offset().top + 1}); 
+	}
+	
+	function scrollMerch(){
+	  $('html,body').animate({scrollTop: $('#merch-section').offset().top + 1});
+	}
+	
+	function scrollPhotos(){
+	  $('html,body').animate({scrollTop: $('#photo-section').offset().top + 1}); 
+	}
+	
+	function scrollSignup(){
+	  $('html,body').animate({scrollTop: $('#newsletter-section').offset().top + 1});
+	}
+	
+	function toLeft(){
+		videoWidth = ($(window).width()*.8);
+		videoMargin = ($(window).width()*.2);
+		
+		currentPosition =  parseInt(videoList.style.left, 10);
+		videoList.style.left = (currentPosition + (videoWidth + videoMargin)) + "px";
+				
+		currentVideo -= 1;
+		if(currentVideo-1 < 0){ 
+			document.querySelector('#scroll-left').className += ' hide'; 	
+		}
+		if(currentVideo < videoIndex){ document.querySelector('#scroll-right').className = ' '; }
+	}
+		
+	function toRight(){
+		videoWidth = ($(window).width()*.8);
+		videoMargin = ($(window).width()*.2);
+		
+		currentPosition =  parseInt(videoList.style.left, 10);
+		videoList.style.left = (currentPosition - (videoWidth + videoMargin)) + "px";
+				
+		if(currentVideo+1 >= videoIndex){ 
+			videoList.style.left = "0px";
+			currentVideo  = 0;
+		} else{
+			currentVideo += 1;
+		}
+		
+		if(currentPosition - videoWidth < 0) { document.querySelector('#scroll-left').className += ' hide'; }	
+		if(currentVideo > 0){ document.querySelector('#scroll-left').className = ' '; }		
+	}
+	
+	function loadVideos(){
+		var posts = '';
+		videoList.style.left = "0px";
+		
+		for(var i = 0, n = videoIDsArray.length; i < n; i++) {
+			posts+= '<li id="post-'+i+'" class="video"><iframe width="560" height="315" src="https://www.youtube.com/embed/'+videoIDsArray[i]+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>';   
+		}						
+		videoWrapper.innerHTML += posts;
+		$('.video').width($(window).width()*.8);
+		$('.video').height(($(window).width()*.8)*(9/16));
+		$('.video').css('margin', '0px ' + ($(window).width()*.1) + 'px');
+		$('.video iframe').width($(window).width()*.8);
+		$('.video iframe').height(($(window).width()*.8)*(9/16));
+	}
+	
+	loadVideos();
+	
+	$(window).resize(function(){
+		$('.video').width($(window).width()*.8);
+		$('.video').height(($(window).width()*.8)*(9/16));
+		$('.video').css('margin', '0px ' + ($(window).width()*.1) + 'px');
+		$('.video iframe').width($(window).width()*.8);
+		$('.video iframe').height(($(window).width()*.8)*(9/16));
+	});
+
+	loadAsyncScript('https://rest.bandsintown.com/artists/'+artistName+'/events?app_id='+appID+'&callback=loadEvents');
+
+	function loadEvents(response) {
+		console.log(response);
+		var
+		headline1 = false,
+		headline2 = false,
+		headline3 = false,
+		eventArray = []
+		;
+		
+		for (var i = 0; i < response.length; i++)
+		{
+			tempDate = new Date(response[i].datetime);
+
+		months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];		
+		eventMonth  = months[tempDate.getMonth()] // Month abbreviation
+		eventDay = response[i].datetime.split('-')[2].split('T')[0];
+		
+		eventVenue = response[i].venue.name;
+		eventRegion = response[i].venue.region;
+		eventCountry = response[i].venue.country;
+		eventCity = response[i].venue.city;
+		eventLocation = eventCity + ', ' + eventRegion;
+		eventTicketStatus = response[i].ticket_status;
+		eventRSVP = response[i].url;
+		vipTickets = '';
+		if(response[i].offers.length > 1){
+			vipTickets = response[i].offers[1].url;
+			eventTickets = response[i].offers[0].url;
+		}
+		else if(response[i].offers.length > 0){
+			eventTickets = response[i].offers[0].url;
+		}
+		else{
+			eventTickets = response[i].url;
+		}
+		
+		eventArray.push({"eventDatetime": response[i].datetime, "eventDay": eventDay, "eventMonth" :months[tempDate.getMonth()], "eventVenue":response[i].venue.name, "eventRegion":response[i].venue.region, "eventCity":response[i].venue.city, "eventCountry":response[i].venue.country, "eventTicketStatus": response[i].ticket_status, "eventTickets": eventTickets, "vipTickets": vipTickets, "eventRSVP": eventRSVP });	
+		} 
+		
+		for (var j = 0; j < eventArray.length; j++){
+			if(response[j].offers.length == 0){
+				if(eventArray[j].eventCountry !== "United States"){
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventCountry +'</div></div><div class="tickets-wrapper">Coming Soon</div></div>';
+				}
+				else{
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventRegion +'</div></div><div class="tickets-wrapper">Coming Soon</div></div>';
+				}
+			}
+			else if(response[j].offers.length > 1){
+				if((response[j].offers[0].type == "Sold Out" && eventArray[j].eventCountry !== "United States") || (response[j].offers[0].type == "SOLDOUT" && eventArray[j].eventCountry !== "United States")){
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventCountry +'</div></div><div class="tickets-wrapper"><a class="event-tickets unavailable" href="'+eventArray[j].eventTickets+'" target="_blank">Sold Out</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a><a class="event-tickets vip-tickets" href="'+eventArray[j].vipTickets+'" target="_blank">VIP Tickets</a></div></div>';
+				}
+				else if(response[j].offers[0].type == "Sold Out" || response[j].offers[0].type == "SOLDOUT"){
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventRegion +'</div></div><div class="tickets-wrapper"><a class="event-tickets unavailable" href="'+eventArray[j].eventTickets+'" target="_blank">Sold Out</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a><a class="event-tickets vip-tickets" href="'+eventArray[j].vipTickets+'" target="_blank">VIP Tickets</a></div></div>';
+				}
+				else if(eventArray[j].eventCountry !== "United States"){
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventCountry +'</div></div><div class="tickets-wrapper"><a class="event-tickets" href="'+eventArray[j].eventTickets+'" target="_blank">Tickets</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a><a class="event-tickets vip-tickets" href="'+eventArray[j].vipTickets+'" target="_blank">VIP Tickets</a></div></div>';
+				}
+				else{
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventRegion +'</div></div><div class="tickets-wrapper"><a class="event-tickets" href="'+eventArray[j].eventTickets+'" target="_blank">Tickets</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a><a class="event-tickets vip-tickets" href="'+eventArray[j].vipTickets+'" target="_blank">VIP Tickets</a></div></div>';
+				}
+			}
+			else if(response[j].offers.length > 0){
+				if((response[j].offers[0].type == "Sold Out" && eventArray[j].eventCountry !== "United States") || (response[j].offers[0].type == "SOLDOUT" && eventArray[j].eventCountry !== "United States")){
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventCountry +'</div></div><div class="tickets-wrapper"><a class="event-tickets no-margin unavailable" href="'+eventArray[j].eventTickets+'" target="_blank">Sold Out</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a></div></div>';
+				}
+				else if(response[j].offers[0].type == "Sold Out" || response[j].offers[0].type == "SOLDOUT"){
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventRegion +'</div></div><div class="tickets-wrapper"><a class="event-tickets no-margin unavailable" href="'+eventArray[j].eventTickets+'" target="_blank">Sold Out</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a></div></div>';
+				}
+				else if(eventArray[j].eventCountry !== "United States"){
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventCountry +'</div></div><div class="tickets-wrapper"><a class="event-tickets no-margin" href="'+eventArray[j].eventTickets+'" target="_blank">Tickets</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a></div></div>';
+				}
+				else{
+					tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventRegion +'</div></div><div class="tickets-wrapper"><a class="event-tickets no-margin" href="'+eventArray[j].eventTickets+'" target="_blank">Tickets</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a></div></div>';
+				}
+			}
+			else if(eventArray[j].eventCountry !== "United States"){
+				tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventCountry +'</div></div><div class="tickets-wrapper"><a class="event-tickets" href="'+eventArray[j].eventTickets+'" target="_blank">Tickets</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a><a class="vip-tickets" href="'+eventArray[j].vipTickets+'" target="_blank">VIP Tickets</a></div></div>';
+			}
+			else{
+				tempHTML += '<div class="event"><div class="event-date"><div class="event-month">'+eventArray[j].eventMonth+'</div><div class="event-day">'+eventArray[j].eventDay+'</div></div><div class="event-location"><div class="event-venue">'+eventArray[j].eventVenue+'</div><div class="event-city">'+eventArray[j].eventCity+ ', ' + eventArray[j].eventRegion +'</div></div><div class="tickets-wrapper"><a class="event-tickets" href="'+eventArray[j].eventTickets+'" target="_blank">Tickets</a><a class="event-tickets event-rsvp" href="'+eventArray[j].eventRSVP+'" target="_blank">RSVP</a><a class="vip-tickets" href="'+eventArray[j].vipTickets+'" target="_blank">VIP Tickets</a></div></div>';
+			}
+		}
+		if(eventArray === undefined || eventArray.length == 0){
+			tempHTML += '<center>No dates currently scheduled.</center>';
+		}
+		
+		sectionLive.innerHTML += tempHTML;
+		postIndex = (eventArray.length/4)-3;
+		
+		$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+		
+		setTimeout(function(){
+			$('#tour-section').css('min-height', ($('.dates-list').height()) + 'px');
+		}, 2000);
+	}
+	
+	jQuery(document).ready(function ($) {
+		//Newsletter
+		$("#form").on('submit', function (e){
+			e.preventDefault();
+			var action = $(this).attr('action');
+			var form_data = $(this).serialize();
+			
+			$.post(action, form_data, function (response, statusText, xhr) {
+				switch (xhr.status) {
+					case 200:
+						$('#newsletter-wrapper').css('left', '-850px');
+						$("#thankyou").html('<span class="thanks">Thanks for signing up!</span>');
+						break;
+					case 400:
+					case 404:
+						$('#newsletter-wrapper').css('left', '-850px');
+						$("#thankyou").html(response.error_message);
+						break;
+					case 410:
+						break;
+					case 403:
+						break;
+				}
+			}, 'json');
+		});
+	});
+	
+	function loadAsyncScript(strSource) {
+	  var elemScript = document.createElement('script');
+	  elemScript.async = true;
+	  elemScript.src = strSource;
+	  document.body.appendChild(elemScript);
+	}
+	
+</script>
